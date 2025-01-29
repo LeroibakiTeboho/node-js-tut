@@ -1,0 +1,1 @@
+29|01|2025	09:34:54	9c5b2140-35a4-4e0f-b7f2-4769ef543efc	Error: Not allowed by CORS

@@ -1,14 +1,54 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const cors = require("cors");
+const { logger } = require("./middleware/logEvents");
+const errorHandler = require("./middleware/errorHandler");
 
 // Define the port number for the server
 const PORT = process.env.PORT || 3500;
+
+// custom middleware logger
+app.use(logger);
+
+const whiteList = [
+  "http://www.yoursite.com",
+  "http://127.0.0.1:5500",
+  "http://localhost:3500",
+];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || whiteList.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  optionsSuccessStatus: 200,
+};
+// Enable CORS (Cross-Origin Resource Sharing) for all requests
+app.use(cors(corsOptions));
+
+//* built-in middleware to handle urlencoded data
+//* in other words, from data;
+//* 'content-type': 'application/x-www-form-urlencoded'
+app.use(express.urlencoded({ extended: true }));
+
+// built-in middleware to handle JSON data
+app.use(express.json());
+
+// server static files from the "public" directory
+app.use(express.static(path.join(__dirname, "/public")));
 
 // Serve static files from the "public" directory
 app.get("^/$|/index(.html)?", (req, res) => {
   // Serve the index.html file from the "views" directory
   res.sendFile(path.join(__dirname, "views", "index.html"));
+});
+
+app.get("^/$|/data(.json)?", (req, res) => {
+  // Serve the index.html file from the "views" directory
+  res.sendFile(path.join(__dirname, "data", "data.json"));
 });
 
 // Additional routes can be added here...
@@ -37,25 +77,37 @@ app.get(
 // chaining route handlers
 
 const one = (req, res, next) => {
-  console.log('one');
+  console.log("one");
   next();
-}
+};
 
 const two = (req, res, next) => {
-  console.log('two');
+  console.log("two");
   next();
-}
+};
 
 const three = (req, res) => {
-  console.log('three');
-  res.send('finished!');
-}
+  console.log("three");
+  res.send("finished!");
+};
 
-app.get('/chain(.html)?', [one, two, three]);
+app.get("/chain(.html)?", [one, two, three]);
 
-app.get("/*", (req, res) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+app.all("*", (req, res) => {
+  // Send a 404 response for all other requests
+  res.status(404);
+
+  // Send a custom 404 error message based on the requested format
+  if (req.accepts("html")) {
+    res.sendFile(path.join(__dirname, "views", "404.html"));
+  } else if (req.accepts("json")) {
+    res.json({ error: "404 Not Found" });
+  } else {
+    res.type("txt").send("404 Not Found");
+  }
 });
+
+app.use(errorHandler);
 
 // Start the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
