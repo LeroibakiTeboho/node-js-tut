@@ -87,3 +87,8 @@
 29|01|2025	13:26:56	82cb94b9-084c-4172-8cb7-f1b08201f306	PUT	undefined	/employees
 29|01|2025	13:28:30	b91acffb-e8b6-4c68-aef5-690f10b2711a	DELETE	undefined	/employees
 29|01|2025	13:31:19	360eb80a-7f2e-4da4-a9bf-478ef540b7c8	GET	undefined	/employees/1
+29|01|2025	14:14:03	233d7d8f-071e-4f02-9ea0-384bc5fcf697	GET	undefined	/employees
+29|01|2025	14:14:18	ebe0d951-93e7-49b7-9a0b-a6911afe3ecd	POST	undefined	/employees
+29|01|2025	14:14:59	2cfff3eb-2734-47fb-b106-4a3f18c1a828	PUT	undefined	/employees
+29|01|2025	14:15:22	3d954ea4-9b4d-4cf6-9379-5724dfea1d77	DELETE	undefined	/employees
+29|01|2025	14:15:35	fdf3632c-ea06-44a3-9e7f-444731657cc9	GET	undefined	/employees/1

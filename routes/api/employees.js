@@ -1,33 +1,14 @@
 const express = require("express");
 const router = express.Router();
-
-//* Load employee data from JSON file (acts as database)
-const data = {};
-data.employees = require("../../data/employees.json");
+const employeesController = require("../../controllers/employeesControllers");
 
 router
   .route("/")
-  .get((req, res) => {
-    res.json(data.employees);
-  })
-  .post((req, res) => {
-    res.json({
-      "firstname": req.body.firstname,
-      "lastname": req.body.lastname,
-    });
-  })
-  .put((req, res) => {
-    res.json({
-      "firstname": req.body.firstname,
-      "lastname": req.body.lastname,
-    });
-  })
-  .delete((req, res) => {
-    res.json({ id: req.body.id });
-  });
+  .get(employeesController.getAllEmployees)
+  .post(employeesController.createNewEmployee)
+  .put(employeesController.updateEmployee)
+  .delete(employeesController.deleteEmployee);
 
-router.route("/:id").get((req, res) => {
-  res.json({ "id": req.params.id });
-});
+router.route("/:id").get(employeesController.getEmployeeById);
 
 module.exports = router;
