@@ -1,13 +1,19 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
 const cors = require("cors");
-const corsOptions = require('./config/corsOptions');
+const corsOptions = require("./config/corsOptions");
 const { logger } = require("./middleware/logEvents");
 const errorHandler = require("./middleware/errorHandler");
 const verifyJWT = require("./middleware/verifyJWT");
 const cookieParser = require("cookie-parser");
-const credentials = require('./middleware/credentials');
+const credentials = require("./middleware/credentials");
+const mongoose = require("mongoose");
+const connectDB = require("./config/dbConn");
+
+//* Connect to MongoDB database
+connectDB();
 
 //* Define the port number for the server
 const PORT = process.env.PORT || 3500;
@@ -43,7 +49,7 @@ app.use("/subdir", require("./routes/subdir"));
 app.use("/refresh", require("./routes/refresh"));
 app.use("/logout", require("./routes/logout"));
 
-app.use(verifyJWT)
+app.use(verifyJWT);
 app.use("/employees", require("./routes/api/employees"));
 
 app.all("*", (req, res) => {
@@ -62,5 +68,9 @@ app.all("*", (req, res) => {
 
 app.use(errorHandler);
 
-//* Start the server
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+mongoose.connection.once("open", () => {
+  console.log("Connected to MongoDB");
+
+  //* Start the server
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+});
