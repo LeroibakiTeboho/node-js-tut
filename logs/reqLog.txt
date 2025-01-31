@@ -11,3 +11,9 @@
 30|01|2025	15:19:51	8257db13-b21d-4a19-8569-6e4c4d804157	DELETE	undefined	/employees
 30|01|2025	15:22:03	5d613c6d-bc1c-4ec9-bd5e-41c8c864db1a	POST	undefined	/auth
 30|01|2025	15:22:17	c3c20767-6e4c-4a12-a5d6-6d6845c8ffcf	DELETE	undefined	/employees
+31|01|2025	07:57:26	2d4b59b5-ee22-46c2-96f5-26a9bbbad7ef	POST	undefined	/register
+31|01|2025	07:58:17	eb3e05a1-8096-45ae-9e86-c07a72f32316	POST	undefined	/register
+31|01|2025	08:02:56	bd9d5460-d6af-4bf7-9be6-b6356fcfb695	POST	undefined	/register
+31|01|2025	08:03:30	a1e41d16-99e9-4167-ae10-30abcbf2e5c9	POST	undefined	/register
+31|01|2025	08:04:29	12799658-c66d-426d-83a7-b8711b9031bf	POST	undefined	/register
+31|01|2025	08:04:40	ac0d916b-b063-44e9-9d71-7d9814d2e49f	POST	undefined	/register
