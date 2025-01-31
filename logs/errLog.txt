@@ -1,0 +1,1 @@
+31|01|2025	11:41:10	7cc6baa6-0fbc-4312-bc84-4a32d172934f	TypeError: Cannot read properties of undefined (reading 'startsWith')
